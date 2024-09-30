@@ -90,3 +90,14 @@ function fetchCartItems() {
 
 fetchCategories();
 fetchProducts();
+
+document.getElementById('cart-btn').addEventListener('click', () => {
+    window.location.href = 'carrito.html';
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+    window.location.href = 'login.html';
+});
+
+fetchCategories();
+fetchProducts();

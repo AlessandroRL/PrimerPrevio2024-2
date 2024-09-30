@@ -7,7 +7,7 @@ h1, h2 {
     text-align: center;
 }
 
-#login-section, #product-section, #cart-section {
+#login-section, #product-section {
     margin: 20px auto;
     max-width: 600px;
     padding: 20px;

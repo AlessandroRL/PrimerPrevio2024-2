@@ -1,38 +1,10 @@
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    const loginData = {
-        username: 'mor_2314',
-        password: '83r5^_'
-    };
-
-    fetch('https://fakestoreapi.com/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(loginData),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.token) {
-            alert('Login exitoso');
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('product-section').style.display = 'block';
-            fetchCategories();
-            fetchProducts();
-        } else {
-            alert('Error en el login');
-        }
-    });
-}
-
+// Cargar categorías desde la API
 function fetchCategories() {
     fetch('https://fakestoreapi.com/products/categories')
         .then(res => res.json())
         .then(categories => {
             const categoryFilter = document.getElementById('categoryFilter');
+            categoryFilter.innerHTML = '<option value="">Todas las Categorías</option>';
             categories.forEach(category => {
                 let option = document.createElement('option');
                 option.value = category;
@@ -42,6 +14,7 @@ function fetchCategories() {
         });
 }
 
+// Cargar productos desde la API
 function fetchProducts(category = '') {
     let url = 'https://fakestoreapi.com/products';
     if (category) {
@@ -52,7 +25,7 @@ function fetchProducts(category = '') {
         .then(res => res.json())
         .then(products => {
             const productList = document.getElementById('product-list');
-            productList.innerHTML = '';
+            productList.innerHTML = ''; // Limpiar la lista de productos
             products.forEach(product => {
                 let div = document.createElement('div');
                 div.className = 'product-item';
@@ -68,11 +41,17 @@ function fetchProducts(category = '') {
         });
 }
 
-function filterByCategory() {
+// Filtrar productos por categoría
+document.getElementById('categoryFilter').addEventListener('change', () => {
     const category = document.getElementById('categoryFilter').value;
     fetchProducts(category);
-}
+});
 
+// Llamar las funciones al cargar la página
+fetchCategories();
+fetchProducts();
+
+// Agregar producto al carrito (placeholder)
 function addToCart(productId) {
     fetch(`https://fakestoreapi.com/carts`, {
         method: "POST",
@@ -84,19 +63,4 @@ function addToCart(productId) {
     })
     .then(res => res.json())
     .then(json => alert('Producto agregado al carrito'));
-}
-
-function showCart() {
-    document.getElementById('product-section').style.display = 'none';
-    document.getElementById('cart-section').style.display = 'block';
-
-    fetch('https://fakestoreapi.com/carts/user/2')
-        .then(res => res.json())
-        .then(cart => {
-            const cartDetails = document.getElementById('cart-details');
-            cartDetails.innerHTML = '';
-            cart.forEach(item => {
-                cartDetails.innerHTML += `<p>Producto ID: ${item.id} - Cantidad: ${item.quantity}</p>`;
-            });
-        });
 }

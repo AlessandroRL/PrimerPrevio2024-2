@@ -1,4 +1,3 @@
-// Cargar categorías desde la API
 function fetchCategories() {
     fetch('https://fakestoreapi.com/products/categories')
         .then(res => res.json())
@@ -14,7 +13,6 @@ function fetchCategories() {
         });
 }
 
-// Cargar productos desde la API
 function fetchProducts(category = '') {
     let url = 'https://fakestoreapi.com/products';
     if (category) {
@@ -41,17 +39,14 @@ function fetchProducts(category = '') {
         });
 }
 
-// Filtrar productos por categoría
 document.getElementById('categoryFilter').addEventListener('change', () => {
     const category = document.getElementById('categoryFilter').value;
     fetchProducts(category);
 });
 
-// Llamar las funciones al cargar la página
 fetchCategories();
 fetchProducts();
 
-// Agregar producto al carrito (placeholder)
 function addToCart(productId) {
     fetch(`https://fakestoreapi.com/carts`, {
         method: "POST",
@@ -64,3 +59,34 @@ function addToCart(productId) {
     .then(res => res.json())
     .then(json => alert('Producto agregado al carrito'));
 }
+
+document.getElementById('cart-btn').addEventListener('click', showCart);
+document.getElementById('logout-btn').addEventListener('click', () => {
+    window.location.href = 'login.html';
+});
+
+function showCart() {
+    document.getElementById('product-section').style.display = 'none';
+    document.getElementById('cart-section').style.display = 'block';
+    fetchCartItems();
+}
+
+function goToProducts() {
+    document.getElementById('cart-section').style.display = 'none';
+    document.getElementById('product-section').style.display = 'block';
+}
+
+function fetchCartItems() {
+    fetch('https://fakestoreapi.com/carts/user/2')
+        .then(res => res.json())
+        .then(cart => {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = ''; // Reset cart items
+            cart.forEach(item => {
+                cartItems.innerHTML += `<p>Producto ID: ${item.id} - Cantidad: ${item.quantity}</p>`;
+            });
+        });
+}
+
+fetchCategories();
+fetchProducts();

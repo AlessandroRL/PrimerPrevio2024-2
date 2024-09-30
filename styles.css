@@ -1,18 +1,32 @@
+/* General */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-h1, h2 {
+h1 {
     text-align: center;
+    color: #007bff;
+    cursor: pointer;
 }
 
-#login-section, #product-section {
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+#login-section, #product-section, #cart-section {
     margin: 20px auto;
     max-width: 600px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 input {
@@ -22,39 +36,71 @@ input {
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 1rem;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
+}
+
+/* Productos */
+#product-section {
+    max-width: 1000px;
 }
 
 #product-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .product-item {
-    flex: 1 1 45%;
-    border: 1px solid #ccc;
+    width: 45%;
     margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product-item img {
+    max-width: 100px;
 }
 
 .product-item button {
-    background-color: #007bff;
+    width: 80%;
+    background-color: #28a745;
 }
 
 .product-item button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
+}
+
+/* Botones adicionales */
+#header-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#header-buttons button {
+    width: 48%;
+}
+
+#cart-section {
+    display: none;
 }
